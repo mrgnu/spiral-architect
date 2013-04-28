@@ -21,9 +21,8 @@
 
 (def cur-idx \1)
 (defn load-spiral []
-  (let [func (get-func cur-idx)]
-    (if func
-      (func radius radius lines loops))))
+  (if-let [func (get-func cur-idx)]
+    (func radius radius lines loops)))
 (def spiral (load-spiral))
 (def from-spiral nil)
 
@@ -31,6 +30,11 @@
   (def fade-start-frame (frame-count))
   (def from-spiral spiral)
   (def to-spiral to))
+
+(defn end-fade []
+  (def spiral to-spiral)
+  (def from-spiral nil)
+  (def to-spiral nil))
 
 (defn draw-spiral [points]
   (dorun (map #(apply line %) (line-join-points points))))
@@ -53,11 +57,8 @@
   (if from-spiral
     (let [factor (/ (- (frame-count) fade-start-frame) fade-frame-count)]
       (if (>= factor 1.)
-        (do
-          (def spiral to-spiral)
-          (def from-spiral nil)
-          (def to-spiral nil))
-        (def spiral (merge-spirals from-spiral to-spiral factor)))))    
+        (end-fade)
+        (def spiral (merge-spirals from-spiral to-spiral factor)))))
 
   (background 192)
   (translate (/ (width) 2) (/ (height) 2))

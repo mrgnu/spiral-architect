@@ -2,7 +2,7 @@
 
 
 ;;; these mapping functions are supposed to take a value in [0; 1] as
-;;; input and produce a normalized value as output.
+;;; input and produce a normalized value as output
 
 ;;; no mapping, returns 1
 (defn map-1 [k]
@@ -33,7 +33,7 @@
   (/ (- 1 (Math/cos (* k Math/PI 2))) 2))
 
 
-;;; interpopate between vectors, factor is expected to be in [0; 1]
+;;; interpolate between vectors, factor is expected to be in [0; 1]
 (defn mix-vertices [v1 v2 factor]
   (map #(+ (* %1 (- 1. factor)) (* %2 factor)) v1 v2))
 

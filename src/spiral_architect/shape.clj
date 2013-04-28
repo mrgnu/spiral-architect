@@ -17,4 +17,4 @@
   (map #(mix-vertices %1 %2 factor) s1 s2))
 
 (defn flip-spiral [spiral]
-  (map #(vector (first %) (- 0. (second %)) (nth % 2)) spiral))
+  (map #(assoc % 1 (- 0. (second %))) spiral))
